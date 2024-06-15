@@ -1,0 +1,11 @@
+{
+  "name": "xspaceserver",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js"
+  },
+  "author": "Spectral 7",
+  "license": "ISC",
+  "description": ""
+}
