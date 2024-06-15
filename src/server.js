@@ -47,9 +47,12 @@ io.on("connection", (socket) => {
   socket.on("player-moving", (transforms) => {
     socket.broadcast.emit("player-moving", transforms);
   });
+
   socket.on("player-shot", (transforms) => {
-    console.log('jugador dispara', transforms);
     socket.broadcast.emit("player-shot", transforms);
+  });
+  socket.on("player-dead", (data) => {
+    socket.broadcast.emit("player-dead", data);
   });
 
   /**
