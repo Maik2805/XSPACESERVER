@@ -8,7 +8,7 @@ const { Server } = require("socket.io");
  * Load environment variables from .env file.
  */
 const clientURLLocalhost = "http://localhost:3000";
-const clientUrlDeploy = "http://xspace-beta.vercel.app";
+const clientUrlDeploy = "https://xspace-beta.vercel.app";
 
 const port = 8080;
 
@@ -18,7 +18,7 @@ const port = 8080;
  */
 const io = new Server({
   cors: {
-    origin: [clientURLLocalhost, clientUrlDeploy],
+    origin: [clientURLLocalhost],
   },
 });
 
@@ -46,6 +46,10 @@ io.on("connection", (socket) => {
    */
   socket.on("player-moving", (transforms) => {
     socket.broadcast.emit("player-moving", transforms);
+  });
+  socket.on("player-shot", (transforms) => {
+    console.log('jugador dispara', transforms);
+    socket.broadcast.emit("player-shot", transforms);
   });
 
   /**
