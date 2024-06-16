@@ -22,28 +22,17 @@ const io = new Server({
   },
 });
 
-/**
- * Start listening on the specified port.
- */
 io.listen(port);
 
-/**
- * Listen for incoming connections.
- */
 io.on("connection", (socket) => {
-  /**
-   * Log the ID of the player connected.
-   */
+
   console.log(
     "Player joined with ID",
     socket.id,
     ". There are " + io.engine.clientsCount + " players connected."
   );
 
-  /**
-   * Handle a player's movement.
-   * Broadcast the transforms to other player.
-   */
+
   socket.on("player-moving", (transforms) => {
     socket.broadcast.emit("player-moving", transforms);
   });
@@ -54,10 +43,10 @@ io.on("connection", (socket) => {
   socket.on("player-dead", (data) => {
     socket.broadcast.emit("player-dead", data);
   });
+  socket.on("generate-live", (data) => {
+    socket.broadcast.emit("generate-live", data);
+  });
 
-  /**
-   * Handle player disconnection.
-   */
   socket.on("disconnect", () => {
     console.log(
       "Player disconnected with ID",
@@ -66,3 +55,14 @@ io.on("connection", (socket) => {
     );
   });
 });
+
+
+// function createLive() {
+//   const clients = Array.from(io.sockets.sockets.values());
+//   if (clients.length > 0) {
+//     const randomIndex = Math.floor(Math.random() * clients.length);
+//     const randomSocket = clients[randomIndex];
+//     randomSocket.emit("generate-live", { message: "This is a live" });
+//   }
+// }
+// setInterval(createLive, 5000);
